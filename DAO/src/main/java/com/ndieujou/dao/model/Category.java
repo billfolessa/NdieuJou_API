@@ -1,4 +1,4 @@
-package com.ndieujou.model;
+package com.ndieujou.dao.model;
 
 public enum Category {
 

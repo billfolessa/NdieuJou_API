@@ -1,10 +1,10 @@
-package com.ndieujou.entity;
+package com.ndieujou.dao.entity;
 
 import java.util.Date;
 import java.util.List;
 
-import com.ndieujou.model.Category;
-import com.ndieujou.model.Status;
+import com.ndieujou.dao.model.Category;
+import com.ndieujou.dao.model.Status;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +33,7 @@ public class Article {
 	private String ville;
 	
 	@OneToOne(optional = false)
-	private User author;
+	private Utilisateur author;
 	
 	@OneToMany
 	List<Comment> comments;

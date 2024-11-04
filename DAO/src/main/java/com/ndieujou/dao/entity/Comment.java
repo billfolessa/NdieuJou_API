@@ -1,4 +1,4 @@
-package com.ndieujou.entity;
+package com.ndieujou.dao.entity;
 
 import java.util.Date;
 
@@ -18,7 +18,7 @@ public class Comment {
 	private long id;
 	private String message;
 	private Date pdate;
-	private User author;
+	private Utilisateur author;
 	@OneToOne(optional = false)
 	private Article article;
 

@@ -1,8 +1,9 @@
-package com.ndieujou.entity;
+package com.ndieujou.dao.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-import com.ndieujou.model.Role;
+import com.ndieujou.dao.model.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,10 +15,11 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "user")
+@Table(name = "utilisateur")
 @Data
-public class User {
+public class Utilisateur implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -33,8 +35,10 @@ public class User {
 	private String aboutMe;
 	@Column(nullable = false, name = "role")
 	private Role role;
-	
+		
 	@OneToMany()
 	private List<Article> article; 
+	
+	
 
 }
