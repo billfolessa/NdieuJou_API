@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: ApiGetway
+
+cloud:
+ gateway:
+  mvc:
+    routes:
+      - id: ARTICLE-MANAGER-SERVICE
+        uri: lb://ArticleMgr
+        predicates:
+          - Path=/article/**
+      - id: MEMBER-AUTHENTICAT-SERVICE
+        uri: lb://SecurityAndMemberMgr
+        predicates:
+          - Path=/member/**
+
+eureka:
+    client:
+      register-with-eureka: true
+      fetch-registry: true
+      service-url:
+        defaultZone: http://localhost:8761/eureka/
+      instance:
+        hostname: localhost		
+
