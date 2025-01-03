@@ -15,7 +15,7 @@ public class Member {
 	private String address; 
 	private String profilPicture;
 	private String aboutMe;
-	private Role role;
+    private Role role;
 	private List<String> articleId; 
 }
 

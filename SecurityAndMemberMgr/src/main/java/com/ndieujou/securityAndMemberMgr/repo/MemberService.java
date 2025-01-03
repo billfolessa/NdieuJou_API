@@ -13,5 +13,7 @@ public interface MemberService {
 	public List<Member> allMember();
 	
 	public int deleteMember(String memberId);
+	
+	public Member update(Member mbr) ;
 
 }
