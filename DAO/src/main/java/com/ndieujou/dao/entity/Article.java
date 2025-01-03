@@ -33,7 +33,7 @@ public class Article {
 	private String ville;
 	
 	@OneToOne(optional = false)
-	private Utilisateur author;
+	private User author;
 	
 	@OneToMany
 	List<Comment> comments;

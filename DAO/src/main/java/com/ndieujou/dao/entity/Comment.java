@@ -18,7 +18,7 @@ public class Comment {
 	private long id;
 	private String message;
 	private Date pdate;
-	private Utilisateur author;
+	private User author;
 	@OneToOne(optional = false)
 	private Article article;
 
