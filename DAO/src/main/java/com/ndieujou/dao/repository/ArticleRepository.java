@@ -7,7 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import com.ndieujou.dao.entity.Article;
 
 @PreAuthorize("hasRole('ROLE_SYSTEM')")
-@RepositoryRestResource(path = "article", collectionResourceRel = "articles")
+@RepositoryRestResource(path = "daoArticle", collectionResourceRel = "articles")
 public interface ArticleRepository extends JpaRepository<Article, Long>{
 
 }

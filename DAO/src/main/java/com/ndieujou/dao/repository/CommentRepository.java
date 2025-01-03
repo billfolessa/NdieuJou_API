@@ -7,7 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import com.ndieujou.dao.entity.Comment;
 
 @PreAuthorize("hasRole('ROLE_SYSTEM')")
-@RepositoryRestResource(path="comment", collectionResourceRel = "comments")
+@RepositoryRestResource(path="daoComment", collectionResourceRel = "comments")
 public interface CommentRepository extends JpaRepository<Comment, Long>{
 
 }

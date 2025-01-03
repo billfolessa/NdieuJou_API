@@ -5,12 +5,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import com.ndieujou.dao.entity.Utilisateur;
+import com.ndieujou.dao.entity.User;
 
 @PreAuthorize("hasRole('ROLE_SYSTEM')")
-@RepositoryRestResource(collectionResourceRel = "users", path="user")
-public interface UserRepository extends JpaRepository<Utilisateur, Long>{
+@RepositoryRestResource(collectionResourceRel = "user", path="daoUsers" )
+public interface UserRepository extends JpaRepository<User, Long>{
 
 	
-	Utilisateur findByEmail( @Param("email") String emain);
+	User findByEmail( @Param("email") String emain);
 }
