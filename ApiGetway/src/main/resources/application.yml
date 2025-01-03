@@ -1,19 +1,22 @@
 spring:
   application:
     name: ApiGetway
-
-cloud:
- gateway:
-  mvc:
-    routes:
-      - id: ARTICLE-MANAGER-SERVICE
-        uri: lb://ArticleMgr
-        predicates:
-          - Path=/article/**
-      - id: MEMBER-AUTHENTICAT-SERVICE
-        uri: lb://SecurityAndMemberMgr
-        predicates:
-          - Path=/member/**
+  cloud:
+    gateway:
+      mvc:
+        routes:
+         - id: ARTICLE-MANAGER-SERVICE
+           uri: lb://ArticleMgr
+           predicates:
+             - Path=/article/**
+         - id: MEMBER-AUTHENTICAT-SERVICE
+           uri: lb://SecurityAndMemberMgr
+           predicates:
+             - Path=/member/**
+         - id: DAO-SERVICE
+           uri: lb://DAO
+           predicates:
+              - Path=/dao**
 
 eureka:
     client:
