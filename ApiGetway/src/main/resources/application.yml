@@ -11,8 +11,8 @@ spring:
              - Path=/article/**
          - id: MEMBER-AUTHENTICAT-SERVICE
            uri: lb://SecurityAndMemberMgr
-           predicates:
-             - Path=/member/**
+           predicates: 
+             - Path=/member/**, /auth/**
          - id: DAO-SERVICE
            uri: lb://DAO
            predicates:
