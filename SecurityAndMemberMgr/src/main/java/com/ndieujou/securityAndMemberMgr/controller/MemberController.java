@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ndieujou.securityAndMemberMgr.model.Member;
-import com.ndieujou.securityAndMemberMgr.repo.MemberService;
+import com.ndieujou.securityAndMemberMgr.entity.Member;
+import com.ndieujou.securityAndMemberMgr.service.MemberService;
+
 
 @RestController
 @RequestMapping("member")
@@ -36,10 +37,10 @@ public class MemberController {
 		return "helloAdmin";
 	}
 	
-	@PostMapping("/save")
-	public ResponseEntity<Member> save(@RequestBody Member mbr){
+	@PostMapping("/create")
+	public ResponseEntity<Member> createMember(@RequestBody Member mbr){
 		if(mbr != null) {
-			Member result = memberService.save(mbr);
+			Member result = memberService.createMember(mbr);
 			if(result != null) {
 				return new ResponseEntity<Member>(result, null, HttpStatus.SC_OK);
 			}
@@ -48,8 +49,5 @@ public class MemberController {
 		
 	}
 	
-	@RequestMapping(method = RequestMethod.POST,  value = {"/textPost"}, consumes = "application/json")
-	public String testPost() {
-		return "testPots";
-	}
+
 }

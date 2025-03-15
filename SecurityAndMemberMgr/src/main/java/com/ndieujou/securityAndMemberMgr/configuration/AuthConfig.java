@@ -84,11 +84,11 @@ public class AuthConfig implements UserDetailsService{
 		return new ProviderManager(authenticationProvider);
 	}
 	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
-
 	
 	
 	 

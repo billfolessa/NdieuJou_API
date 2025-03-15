@@ -1,10 +1,10 @@
-package com.ndieujou.dao.entity;
+package com.ndieujou.securityAndMemberMgr.entity;
 
 import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ndieujou.dao.model.Role;
+import com.ndieujou.securityAndMemberMgr.model.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,9 +16,9 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "user")
+@Table(name = "member")
 @Data
-public class User implements Serializable{
+public class Member implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -36,15 +36,11 @@ public class User implements Serializable{
 	private String aboutMe;
 	@Column(nullable = false, name = "role")
 	private Role role;
-		
-	@OneToMany()
-	private List<Article> article; 
 	
-	@JsonIgnore
-	public String getPassword() {
-		return password;
-	}
+	private List<String> articles; 
+	
 	
 	
 
 }
+
