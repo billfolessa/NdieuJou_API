@@ -4,10 +4,17 @@ on:
   push:
     branches:
       - main  # Déclenche l'action quand du code est poussé sur la branche main
+    paths:
+      - 'ApiGetway/**'
+      - 'EurekaServer/**'
+      - 'SecurityAndMemberMgr/**'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [ApiGetway, EurekaServer, SecurityAndMemberMgr]
 
     steps:
       - name: Checkout repository
@@ -22,14 +29,20 @@ jobs:
 
       - name: Login to Amazon ECR
         run: |
-          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY_URI }}
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
       - name: Build and push Docker image
+        env:
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          SERVICE: ${{ matrix.service }}
         run: |
-          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:latest .
-          docker tag ${{ secrets.ECR_REPOSITORY_URI }}:latest ${{ secrets.ECR_REPOSITORY_URI }}:latest
-          docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
+          cd $SERVICE
+          docker build -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/ndieujou/$SERVICE:latest .
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/ndieujou/$SERVICE:latest
 
       - name: Update ECS Service
+        env:
+          SERVICE: ${{ matrix.service }}
         run: |
-          aws ecs update-service --cluster ndieuJou-cluster --service ndieuJou-service --force-new-deployment
+          aws ecs update-service --cluster ndieuJou-cluster --service ndieuJou-$SERVICE --force-new-deployment
