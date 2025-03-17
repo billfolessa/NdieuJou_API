@@ -10,7 +10,7 @@ FROM eclipse-temurin:17-jre-alpine
 # Définir le répertoire de travail
 WORKDIR /app
 # Copier l’application compilée
-COPY --from=builder /app/target/ApiGetway.jar app.jar
+COPY --from=builder /app/target/*.jar app.jar
 # Exposer le port sur lequel l'application écoute
 EXPOSE 8080
 # Commande pour exécuter l'application
