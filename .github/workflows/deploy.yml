@@ -55,5 +55,5 @@ jobs:
 
           for SERVICE in "${SERVICES[@]}"; do
             echo "Updating ECS service for $SERVICE..."
-            aws ecs update-service --cluster ndieuJou-cluster --service $SERVICE --force-new-deployment
+            aws ecs update-service --cluster ${{ secrets.ECS_CLUSTER_NAME }} --service $SERVICE --force-new-deployment
           done
