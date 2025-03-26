@@ -51,12 +51,12 @@ L’API de **Ndieujou** intègre plusieurs fonctionnalités essentielles :
 - **API Documentation** : Swagger  
 
 ### **Base de données & Stockage**  
-- **Base de données principale** : PostgreSQL  
+- **Base de données principale** : PostgreSQL, MongoDB  
 - **Cache** : Redis  
 - **Stockage des fichiers** : AWS S3  
 
 ### **Communication & Événements**  
-- **Système de messagerie** : Apache Kafka  
+- **Système de messagerie** : Apache Kafka, RabbitMQ  
 - **Notifications push & emails** : Twilio, AWS SES  
 
 ### **DevOps & Déploiement**  
