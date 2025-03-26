@@ -1,10 +1,10 @@
-package com.ndieujou.securityAndMemberMgr;
+package com.ndieujou.logement;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-//@SpringBootTest
-class SecurityAndMemberMgrApplicationTests {
+@SpringBootTest
+class LogementsServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -3,12 +3,15 @@ package com.ndieujou.securityAndMemberMgr.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,6 +21,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationCo
 
 import com.google.gson.Gson;
 import com.ndieujou.securityAndMemberMgr.entity.Member;
+import com.ndieujou.securityAndMemberMgr.entity.NdieuJouIllegalArgumentException;
+import com.ndieujou.securityAndMemberMgr.exception.NotFoundException;
 import com.ndieujou.securityAndMemberMgr.model.Role;
 import com.ndieujou.securityAndMemberMgr.repositoty.MemberRepository;
 
@@ -47,18 +52,23 @@ public class MemberServiceImp implements MemberService {
 	private AuthenticationConverter authenticationConverter = new BasicAuthenticationConverter();
 
 	@Override
-	public Member createMember(Member mbr) { 
-		if(mbr != null ) {
-			mbr.setId(0);
-			mbr.setRole(Role.USER);
-			Member result = internalSave(mbr);
-			return result;
-		}
-		return mbr;
+	public Optional<Member> createMember(Member mbr) throws NdieuJouIllegalArgumentException { 
+		
+			try {
+				Objects.requireNonNull(mbr, "member cannot be null");
+				mbr.setId(0);
+				mbr.setRole(Role.USER);
+				Member result = memberRepository.save(mbr);
+				return Optional.of(result);
+			}catch(IllegalArgumentException ex) {
+				throw new NdieuJouIllegalArgumentException(ex.getMessage());
+			}catch(Exception ex) {
+				throw new NdieuJouIllegalArgumentException(ex.getMessage());
+			}
 	}
 	
 	@Override
-	public Member update(Member mbr) {
+	public Member updateMember(Member mbr) {
 		if(mbr != null) {
 			// TODO Auto-generated method stub
 		}
@@ -67,7 +77,7 @@ public class MemberServiceImp implements MemberService {
 
 
 	@Override
-	public Member memberById(String memberId) {
+	public Member findMemberById(String memberId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -85,6 +95,7 @@ public class MemberServiceImp implements MemberService {
 	}
 	
 	
+	@Deprecated
 	private Member internalSave(Member mbr) {
 		if(mbr != null ) {
 			try {
@@ -123,7 +134,7 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public Member memberByEmail(String email) {
+	public Member findMemberByEmail(String email) {
 		Member member = memberRepository.findByEmail(email);
 		return member;
 	}

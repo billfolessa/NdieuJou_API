@@ -50,7 +50,7 @@ public class AuthController {
 	@GetMapping("validate")
 	public ResponseEntity<?> validateTocken(@RequestParam String jwt){
 		String email = jwtUtils.extractEmail(jwt);
-		Member member = memberService.memberByEmail(email);
+		Member member = memberService.findMemberByEmail(email);
 
 
 		if(member != null && jwtUtils.validateToken(jwt, member.getEmail())) {

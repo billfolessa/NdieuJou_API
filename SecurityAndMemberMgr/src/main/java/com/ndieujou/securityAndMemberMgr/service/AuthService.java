@@ -25,7 +25,7 @@ public class AuthService {
 	public AuthenticationReponse Authenticate(AuthenticationRequest authenticationRequest) throws NotFoundException  {
 		AuthenticationReponse response  = null;
 		if(authenticationRequest != null) {
-			Member member = memberService.memberByEmail(authenticationRequest.getEmail());
+			Member member = memberService.findMemberByEmail(authenticationRequest.getEmail());
 			if(member != null) {
 				boolean isMatchPassword = passwordEncoder.matches(authenticationRequest.getPassword(), member.getPassword());
 				if(isMatchPassword) {
