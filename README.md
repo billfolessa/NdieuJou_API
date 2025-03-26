@@ -74,6 +74,6 @@ L’API de **Ndieujou** intègre plusieurs fonctionnalités essentielles :
 
 1. **Cloner le repository**  
    ```sh
-   git clone https://github.com/votre-utilisateur/ndieujou-api.git
+   git clone https://github.com/billfolessa/NdieuJou_API.git
    cd ndieujou-api
 
