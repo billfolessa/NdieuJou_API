@@ -28,7 +28,7 @@ jobs:
         run: docker pull rabbitmq:latest
 
       - name: Tag image for ACR
-        run: docker tag rabbitmq:latest ${{ secrets.ECR_REPOSITORY_URI }}:$SERVICE-latest
+        run: docker tag rabbitmq:latest ${{ secrets.ECR_REPOSITORY_URI }}:latest
 
       - name: Pusher l'image dans ECR
         run: docker push rabbitmq:latest
