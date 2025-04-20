@@ -28,9 +28,9 @@ jobs:
         run: docker pull apache/kafka:latest
 
       - name: Tag image for ACR
-        run: docker tag apache/kafka:latest ${{ secrets.ECR_REPOSITORY_URI }}:latest
+        run: docker tag apache/kafka:latest ${{ secrets.ECR_REPOSITORY_URI }}:kafka-latest
 
       - name: Pusher l'image dans ECR
-        run: docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
+        run: docker push ${{ secrets.ECR_REPOSITORY_URI }}:kafka-latest
 
       
