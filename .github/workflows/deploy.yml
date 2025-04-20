@@ -24,13 +24,13 @@ jobs:
         run: |
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY_URI }}
 
- 	- name: Pull RabbitMQ from Docker Hub
-      	run: docker pull rabbitmq:latest
+      - name: Pull RabbitMQ from Docker Hub
+        run: docker pull rabbitmq:latest
 
-	- name: Tag image for ACR
-      	run: docker tag rabbitmq: latest ${{ secrets.ECR_REPOSITORY_URI }}:$SERVICE-latest
+      - name: Tag image for ACR
+        run: docker tag rabbitmq:latest ${{ secrets.ECR_REPOSITORY_URI }}:$SERVICE-latest
 
-	# Pusher l'image dans ECR
-            docker push rabbitmq:latest
+      - name: Pusher l'image dans ECR
+        run: docker push rabbitmq:latest
 
       
