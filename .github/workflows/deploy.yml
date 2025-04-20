@@ -3,7 +3,7 @@ name: Deploy to AWS ECS
 on:
   push:
     branches:
-      - master  # Déclenche l'action quand du code est poussé sur la branche main
+      - main  # Déclenche l'action quand du code est poussé sur la branche main
 
 jobs:
   deploy:
@@ -24,36 +24,13 @@ jobs:
         run: |
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY_URI }}
 
-      - name: Build and push Docker images for all microservices
-        run: |
-          # Liste des microservices
-          SERVICES=("EurekaServer" "ApiGetway" "SecurityAndMemberMgr")
+ 	- name: Pull RabbitMQ from Docker Hub
+      	run: docker pull rabbitmq:latest
 
-          for SERVICE in "${SERVICES[@]}"; do
-            echo "Building and pushing $SERVICE..."
-            
-            # Aller dans le dossier du microservice
-            cd $SERVICE
-            
-            # Construire l'image Docker
-            docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:$SERVICE-latest .
-            
-            # Tagger l'image
-            docker tag ${{ secrets.ECR_REPOSITORY_URI }}:$SERVICE-latest ${{ secrets.ECR_REPOSITORY_URI }}:$SERVICE-latest
-            
-            # Pusher l'image dans ECR
-            docker push ${{ secrets.ECR_REPOSITORY_URI }}:$SERVICE-latest
-            
-            # Revenir au répertoire racine
-            cd ..
-          done
+	- name: Tag image for ACR
+      	run: docker tag rabbitmq: latest ${{ secrets.ECR_REPOSITORY_URI }}:$SERVICE-latest
 
-      - name: Update ECS Services
-        run: |
-          # Mettre à jour chaque service ECS avec la nouvelle image
-          SERVICES=("EurekaServer" "ApiGetway" "SecurityAndMemberMgr")
+	# Pusher l'image dans ECR
+            docker push rabbitmq:latest
 
-          for SERVICE in "${SERVICES[@]}"; do
-            echo "Updating ECS service for $SERVICE..."
-            aws ecs update-service --cluster ${{ secrets.ECS_CLUSTER_NAME }} --service $SERVICE --force-new-deployment
-          done
+      
